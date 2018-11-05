@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Vue</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_APIKEY"></script>
+    <script src="js/vue.js"></script>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+            position: absolute;
+            height: 100%;
+            left:300px;
+            right: 0;
+        }
+        #inputwindow{
+            position: absolute;
+            height: 100%;
+            width: 300px;
+            left: 0;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        table.listitem{
+            width:100%;
+            padding:10px;
+            border-bottom: solid;
+            border-color: #CCCCCC;
+            border-width: 1px;
+            font-size: 15px;
+            overflow: scroll;
+        }
+
+    </style>
+</head>
+<body>
+<div id="inputwindow">
+    <div id="inputform">
+        <table style="margin:auto; padding-top: 10px; padding-bottom: 10px;">
+            <tr id="methods">
+                <td align="center">
+						<span>
+							<input type="image" src="img/walk.png" id = "walk" style="height: 30px; width: 30px">
+						</span>
+                    <span>
+							<input type="image" src="img/car.png" id = "car" style="height: 30px; width: 30px">
+						</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <span>From:</span>
+                    <input type="text" v-on:focus="bindPinpoint('from')" ref="fromInput" name="" v-on:keyup.enter="inputsuggestion('from')" placeholder="Enter start location" v-model="fromLocStr" style="width: 70%;">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    <span>To:</span>
+                    <input type="text" v-on:focus="bindPinpoint('to')" ref="toInput" name="" placeholder="Enter destination location" v-model="toLocStr" style="width: 70%;"></td>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <span>Search engine:</span>
+                    <select v-model="searchEngine">
+                        <option value="Dijkstra">Dijkstra</option>
+                        <option value="AStar">A*</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <span>Cost Preference:</span>
+                    <select v-model="costType">
+                        <option value="Time">Time</option>
+                        <option value="Distance">Distance</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <input type="button" v-on:click= "startSearch" value= "Search" id = "searchButton" style="width: 50%; height:20px;">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <list-item v-for="res in results"
+                   v-bind:key="res.id"
+                   v-bind:icon="res.icon"
+                   v-bind:name="res.name"></list-item>
+    </div>
+</div>
+<div id="map"></div>
+
+<script type="text/javascript">
+    function myJsonCallback(json){
+        console.log(json);
+    }
+    Vue.component('list-item', {
+        props: ['icon', 'name'],
+        template: '<table class="listitem"><tr><td style="width:40px;">\
+			<img :src=icon style="width:20px; height: 20px;"></td><td>\
+			<div style="position: relative;">{{ name }}</div></td></tr></table>'
+    })
+
+    var input = new Vue({
+        el: '#inputwindow',
+        data:{
+            fromLocStr:"",
+            toLocStr:"",
+            fromMarker:undefined,
+            toMarker:undefined,
+            activeMethod:"",
+            results : [],
+            searchEngine:"Dijkstra",
+            costType:"Time",
+        },
+        methods:{
+            setResult: function(q) {
+                this.results = q.results;
+            },
+            inputsuggestion: function(str){
+                if(str === "from"){
+                    var reqdata = {
+                        'lat' : mapapp.getCenterLat(),
+                        'lng' : mapapp.getCenterLng(),
+                        'zoom' : mapapp.getCurrentZoom(),
+                        'keyword' : this.fromLocStr,
+                    };
+                    console.log(reqdata);
+                    $.ajax({
+                        url: "/locationSearchSuggestion",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: JSON.stringify(reqdata),
+                        contentType: "application/json; charset=utf-8",
+                        success: function(data){
+                            mapapp.setResult(data);
+                            input.setResult(data);
+                        }
+                    });
+                }
+            },
+            startSearch: function(){
+                console.log(this.fromMarker);
+                console.log(this.toMarker);
+                if(this.fromMarker != undefined && this.toMarker != undefined){
+                    //console.log("start");
+                    $.ajax({
+                        url: "/getRoute",
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            'st_lat':this.fromMarker.position.lat,
+                            'st_lon':this.fromMarker.position.lng,
+                            'ed_lat':this.toMarker.position.lat,
+                            'ed_lon':this.toMarker.position.lng,
+                            'searchEngine':this.searchEngine,
+                            'cost':this.costType,
+                        },
+                        success: function(data){
+                            //console.log(data);
+                            mapapp.drawRoute(data.route);
+                        }
+                    });
+                }else{
+                    alert("Please select both starting point and destination");
+                }
+            },
+            bindPinpoint: function(v){
+                if(v == "from"){
+                    mapapp.map.addListener('click', function(e){
+                        if(input.fromMarker != undefined){
+                            input.fromMarker.setMap(null);
+                            input.fromMarker = null;
+                        }
+                        console.log(e.latLng);
+                        input.fromMarker = new google.maps.Marker({
+                            position: e.latLng,
+                            title: "From",
+                            map : mapapp.map
+                        });
+                        google.maps.event.clearListeners(mapapp.map, 'click');
+                        //input.$refs.fromInput.focus();
+                    })
+                }
+                else if(v == "to"){
+                    mapapp.map.addListener('click', function(e){
+                        if(input.toMarker != undefined){
+                            input.toMarker.setMap(null);
+                            input.toMarker = null;
+                        }
+                        console.log(e.latLng);
+                        input.toMarker = new google.maps.Marker({
+                            position: e.latLng,
+                            title: "To",
+                            map : mapapp.map
+                        });
+                        google.maps.event.clearListeners(mapapp.map, 'click');
+                        //input.$refs.toInput.focus();
+                    })
+                }
+
+                console.log(this.fromMarker);
+                console.log(this.toMarker);
+            }
+        }
+    })
+
+    var mapapp = new Vue({
+        el: '#map',
+        data:{
+            map:undefined,
+            center: "",
+            markerSet: [],
+            activeMarker:undefined,
+            routeLine:undefined,
+        },
+        methods: {
+            getInitialView:function(){
+                fetch("/getInitialView").then(res => res.json()).then(res =>{
+                    console.log(res);
+                this.map.setCenter(res.pos);
+                //this.map.setZoom(1);
+                this.map.setZoom(res.zoom)
+            });
+                fetch("/getCenterString").then(res => res.json()).then(res => {
+                    this.center = res.loc;
+                //console.log(this.center);
+            });
+            },
+            drawRoute: function(route){
+                if(this.routeLine != undefined){
+                    this.routeLine.setMap(null);
+                }
+                this.routeLine = new google.maps.Polyline({
+                    path: route,
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2,
+                    map: this.map,
+                });
+            },
+            setResult: function(q){
+                console.log(this.markerSet);
+                for(var i = 0; i < this.markerSet.length; i ++){
+                    this.markerSet[i].setMap(null);
+                }
+                this.markerSet = new  Array ();
+                for(var i = 0; i < q.results.length; i ++ ){
+                    //console.log(q.results[i]);
+                    var marker = new google.maps.Marker({
+                        position: q.results[i].geometry.location,
+                        title: q.results[i].name,
+                    });
+                    this.markerSet.push(marker);
+                    marker.setMap(this.map);
+                }
+            },
+            getCenterLat: function(){
+                return this.map.getCenter().lat();
+            },
+            getCenterLng: function(){
+                return this.map.getCenter().lng();
+            },
+            getCurrentZoom: function(){
+                return this.map.getZoom();
+            },
+
+        },
+        mounted: function () {
+            this.map = new google.maps.Map(document.getElementById('map'));
+            this.getInitialView();
+        }
+    })
+</script>
+</body>
