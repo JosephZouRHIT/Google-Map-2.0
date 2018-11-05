@@ -1,6 +1,6 @@
 package com.mymap.coremap.OSMUtil;
 
 
-public enum Axis{
+public enum Axis {
     LON, LAT
 }

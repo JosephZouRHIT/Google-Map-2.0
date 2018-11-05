@@ -7,9 +7,9 @@ import java.util.Map;
  */
 public class OSMRelation extends OSMAbstractType {
 
-	public OSMRelation(long _id, Map<String, String> map) {
-		super(_id, map);
-		// TODO Auto-generated constructor stub
-	}
+    public OSMRelation(long _id, Map<String, String> map) {
+        super(_id, map);
+        // TODO Auto-generated constructor stub
+    }
 
 }

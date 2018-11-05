@@ -8,9 +8,10 @@ import com.mymap.coremap.OSMUtil.OSMAbstractType;
  */
 public class PointOfInterestVertex extends AbstractVertex {
 
-	private String name;
-	public PointOfInterestVertex(OSMAbstractType o, double c_lat, double c_lon, String n) {
-		super(o, c_lat, c_lon);
-		name = n;
-	}
+    private String name;
+
+    public PointOfInterestVertex(OSMAbstractType o, double c_lat, double c_lon, String n) {
+        super(o, c_lat, c_lon);
+        name = n;
+    }
 }

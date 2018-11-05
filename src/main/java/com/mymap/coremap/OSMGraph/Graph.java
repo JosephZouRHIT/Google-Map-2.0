@@ -77,10 +77,6 @@ public class Graph {
         return nodeOnRoad;
     }
 
-    public enum Direction {FORWARD, BACK}
-
-    ;
-
     private double getDistanceOfInternalNode(RoadEdge e,
                                              AbstractVertex v,
                                              Direction d,
@@ -97,23 +93,23 @@ public class Graph {
         OSMNode last = null;
         switch (d) {
             case BACK:
-                for(Long i : e.getPath()){
-                    if(last != null){
+                for (Long i : e.getPath()) {
+                    if (last != null) {
                         dis += OSMMathUtil.distance(dm.getNodeById(i), last);
                     }
                     wayListDest.add(i);
                     last = dm.getNodeById(i);
-                    if(i == v.getID()){
+                    if (i == v.getID()) {
                         break;
                     }
                 }
                 break;
             case FORWARD:
                 Iterator<Long> it = e.getPath().iterator();
-                while(it.next() != v.getID());
+                while (it.next() != v.getID()) ;
                 last = dm.getNodeById(v.getID());
                 wayListDest.add(v.getID());
-                while(it.hasNext()){
+                while (it.hasNext()) {
                     Long cur = it.next();
                     dis += OSMMathUtil.distance(last, dm.getNodeById(cur));
                     wayListDest.add(cur);
@@ -122,6 +118,8 @@ public class Graph {
         }
         return dis;
     }
+
+    ;
 
     public RoadEdge getPartialEdge(RoadEdge e, AbstractVertex v, Direction d) {
         if (!nodeInEdge.containsKey(e)) {
@@ -151,4 +149,6 @@ public class Graph {
         }
         return new_e;
     }
+
+    public enum Direction {FORWARD, BACK}
 }

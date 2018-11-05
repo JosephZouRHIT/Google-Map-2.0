@@ -11,5 +11,6 @@ import java.util.List;
  */
 public interface AbstractSearchEngine {
     List<RoadEdge> getVertexRoute(AbstractVertex from, AbstractVertex to);
+
     List<RoadEdge> getVertexRoute(AbstractVertex from, AbstractVertex to, CostType costType);
 }

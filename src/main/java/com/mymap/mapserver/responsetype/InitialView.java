@@ -6,7 +6,7 @@ public class InitialView {
     private final Location pos;
     private final int zoom;
 
-    public InitialView(GeoLocation center, int zoom){
+    public InitialView(GeoLocation center, int zoom) {
         pos = new Location(center);
         this.zoom = zoom;
     }

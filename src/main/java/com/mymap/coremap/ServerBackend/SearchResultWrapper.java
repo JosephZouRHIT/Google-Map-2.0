@@ -17,19 +17,19 @@ public class SearchResultWrapper {
         return distance;
     }
 
-    public double getTime() {
-        return time;
-    }
-
-    public LinkedList<GeoLocation> getRoute() {
-        return route;
-    }
-
     public void setDistance(double distance) {
         this.distance = distance;
     }
 
+    public double getTime() {
+        return time;
+    }
+
     public void setTime(double time) {
         this.time = time;
+    }
+
+    public LinkedList<GeoLocation> getRoute() {
+        return route;
     }
 }

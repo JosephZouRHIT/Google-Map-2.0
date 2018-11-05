@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public class RawJson {
     private final String value;
 
-    public RawJson(String value){
+    public RawJson(String value) {
         this.value = value;
     }
 

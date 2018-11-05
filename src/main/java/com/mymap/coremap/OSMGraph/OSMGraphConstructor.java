@@ -37,7 +37,7 @@ public class OSMGraphConstructor {
         this.graph = this.constructGraph();
     }
 
-    public Graph getGraph(){
+    public Graph getGraph() {
         return this.graph;
     }
 
@@ -82,10 +82,10 @@ public class OSMGraphConstructor {
                     if (!this.way2edgeList.containsKey(way.getID()))
                         this.way2edgeList.put(way.getID(), new HashSet<AbstractEdge>());
 
-                    RoadEdge e = new RoadEdge(way,path, f, t, speed, length);
+                    RoadEdge e = new RoadEdge(way, path, f, t, speed, length);
                     this.adjList.get(f).add(e);
                     this.way2edgeList.get(way.getID()).add(e);
-                    this.nodeInEdge.put(e,inEdge);
+                    this.nodeInEdge.put(e, inEdge);
 
                     if (!way.isOneway()) {
                         LinkedList<Long> rev = new LinkedList<>();
@@ -95,7 +95,7 @@ public class OSMGraphConstructor {
                         RoadEdge r = new RoadEdge(way, rev, t, f, speed, length);
                         this.adjList.get(t).add(r);
                         this.way2edgeList.get(way.getID()).add(r);
-                        this.nodeInEdge.put(r,inEdge);
+                        this.nodeInEdge.put(r, inEdge);
                     }
                     length = 0.0;
                     from = node;
@@ -103,7 +103,7 @@ public class OSMGraphConstructor {
                     path = new LinkedList<>();
                     path.addLast(node.getID());
                     inEdge.add(node.getID());
-                }else{
+                } else {
                     inEdge.add(node.getID());
                 }
                 last = node;

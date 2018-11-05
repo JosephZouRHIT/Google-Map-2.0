@@ -42,15 +42,15 @@ public class MyController {
                              @RequestParam(value = "cost") String costType) {
         TempLocation st_loc = new TempLocation(st_lat, st_lon);
         TempLocation ed_loc = new TempLocation(ed_lat, ed_lon);
-        try{
+        try {
             SearchResultWrapper result = MapserverApplication.getMap().findRoute(st_loc, ed_loc, se, costType);
             MapserverApplication.getLogger().info(String.format("Finish search with search engine: %s, find best: %s", se, costType));
             return new MapRoute(result);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             SearchResultWrapper error_result = new SearchResultWrapper();
             error_result.setTime(Double.NaN);
             error_result.setTime(Double.NaN);
-            MapserverApplication.getLogger().error(String.format("Wrong search engine type:%s",se));
+            MapserverApplication.getLogger().error(String.format("Wrong search engine type:%s", se));
             return new MapRoute(error_result);
         }
     }

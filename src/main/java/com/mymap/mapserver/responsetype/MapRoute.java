@@ -11,10 +11,6 @@ public class MapRoute {
     private final double time;
     private final boolean have_route;
 
-    public boolean isHave_route() {
-        return have_route;
-    }
-
     public MapRoute(SearchResultWrapper resultWrapper) {
         have_route = resultWrapper.getRoute() != null;
         this.route = new LinkedList<>();
@@ -26,6 +22,10 @@ public class MapRoute {
         this.distance = resultWrapper.getDistance();
         this.time = resultWrapper.getTime();
 
+    }
+
+    public boolean isHave_route() {
+        return have_route;
     }
 
     public LinkedList<Location> getRoute() {

@@ -20,7 +20,7 @@ public class OSMWay extends OSMAbstractType {
     }
 
     public boolean isRoad() {
-        if(this.hasTag("highway")){
+        if (this.hasTag("highway")) {
             return !this.getTagValue("highway").equals("footway");
         }
         return false;
@@ -31,22 +31,25 @@ public class OSMWay extends OSMAbstractType {
         if (this.hasTag("maxspeed")) {
             String str = this.getTagValue("maxspeed");
             String[] sl = str.split("\\s+");
-            if(sl.length <= 1){
-                try{
+            if (sl.length <= 1) {
+                try {
                     speed = Unit.convert(Integer.parseInt(sl[0]), Unit.KILO, Unit.MILE);
-                } catch (NumberFormatException ignored){}
-            } else if(sl[1].equals("mph")){
-                try{
+                } catch (NumberFormatException ignored) {
+                }
+            } else if (sl[1].equals("mph")) {
+                try {
                     speed = Integer.parseInt(sl[0]);
-                } catch (NumberFormatException ignored){}
+                } catch (NumberFormatException ignored) {
+                }
             } else {//might have several speed, try to get the first one
-                try{
+                try {
                     speed = Integer.parseInt(sl[0]);
-                } catch (NumberFormatException ignored){}
+                } catch (NumberFormatException ignored) {
+                }
             }
-        } else if(this.hasTag("highway")){
+        } else if (this.hasTag("highway")) {
             String str = this.getTagValue("highway");
-            switch (str){
+            switch (str) {
                 case "residential":
                     speed = 25;
                     break;
@@ -77,12 +80,13 @@ public class OSMWay extends OSMAbstractType {
         return false;
     }
 
-    public String getName(){
-        if(this.hasTag("name")){
+    public String getName() {
+        if (this.hasTag("name")) {
             return this.getTagValue("name");
         }
         return "Unknown";
     }
+
     @Override
     public String toString() {
         return super.toStringHelper(String.format("node list: %s", this.nodeIdList.toString()));

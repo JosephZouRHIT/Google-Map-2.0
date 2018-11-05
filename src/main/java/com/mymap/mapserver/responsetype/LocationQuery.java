@@ -1,6 +1,11 @@
 package com.mymap.mapserver.responsetype;
 
 public class LocationQuery {
+    private double lat;
+    private double lng;
+    private int zoom;
+    private String keyword;
+
     public double getLat() {
         return lat;
     }
@@ -32,10 +37,5 @@ public class LocationQuery {
     public void setKeyword(String keyword) {
         this.keyword = keyword;
     }
-
-    private double lat;
-    private double lng;
-    private int zoom;
-    private String keyword;
 
 }

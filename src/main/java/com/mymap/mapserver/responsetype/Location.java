@@ -6,12 +6,12 @@ public class Location {
     private final double lat;
     private final double lng;
 
-    public Location(GeoLocation gl){
+    public Location(GeoLocation gl) {
         lat = gl.getLatitude();
         lng = gl.getLongitude();
     }
 
-    public Location(double lat, double lng){
+    public Location(double lat, double lng) {
         this.lat = lat;
         this.lng = lng;
     }

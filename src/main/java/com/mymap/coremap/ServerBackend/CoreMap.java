@@ -17,13 +17,14 @@ public class CoreMap {
     private NearestRoadFinder nrf;
     private Graph graph;
 
-//    public CoreMap(){
+    //    public CoreMap(){
 //        loadWithFile("Terre Haute.osm");
 //    }
-    public CoreMap(String osmfile){
+    public CoreMap(String osmfile) {
         loadWithFile(osmfile);
     }
-    private void loadWithFile(String osmfile){
+
+    private void loadWithFile(String osmfile) {
         dm = OSMXMLInterpreter.loadFromFile(osmfile);
         assert dm != null;
         OSMGraphConstructor gc = new OSMGraphConstructor(dm);
@@ -33,7 +34,28 @@ public class CoreMap {
 
     public GeoLocation getCenter() {
         double[] area = getMapBound();
-        return new TempLocation((area[0]+area[1])/2, (area[2] + area[3])/2);
+        return new TempLocation((area[0] + area[1]) / 2, (area[2] + area[3]) / 2);
+    }
+
+    public double[] getMapBound() {
+        //System.out.println(dm.getXMLbound());
+        return dm.getXMLbound();
+    }
+
+    public int getZoomLevel() {
+        return OSMMathUtil.getZoomLevel(getMapBound());
+
+    }
+
+    public final SearchResultWrapper findRoute(GeoLocation st, GeoLocation ed, String se, String cost) {
+        if (!SearchEngineFactory.isSupportedSearchEngine(se)) {
+            //System.err.println(String.format("Search engine %s is not supported",se));
+            throw new IllegalArgumentException();
+        }
+        SearchResultWrapper resultWrapper = new SearchResultWrapper();
+        FindRouteQuery query = new FindRouteQuery(st, ed, resultWrapper, se, cost);
+        query.run();
+        return resultWrapper;
     }
 
     private class FindRouteQuery implements Runnable {
@@ -45,15 +67,15 @@ public class CoreMap {
         private String searchEngine;
         private CostType costType;
 
-        public FindRouteQuery(GeoLocation st, GeoLocation ed, SearchResultWrapper resultWrapper, String se, String cost){
+        public FindRouteQuery(GeoLocation st, GeoLocation ed, SearchResultWrapper resultWrapper, String se, String cost) {
             startLocation = st;
             endLocation = ed;
             fullList = resultWrapper.getRoute();
             this.resultWrapper = resultWrapper;
             this.searchEngine = se;
-            if(cost.equals("Distance")){
+            if (cost.equals("Distance")) {
                 costType = CostType.DISTANCE;
-            }else{
+            } else {
                 costType = CostType.TIME;
             }
         }
@@ -66,12 +88,12 @@ public class CoreMap {
 //            System.out.println(stVet.getID());
 //            System.out.println(edVet.getID());
 //            System.out.println();
-            assert(graph.isOnRoad(stVet.getID()));
-            assert(graph.isOnRoad(edVet.getID()));
+            assert (graph.isOnRoad(stVet.getID()));
+            assert (graph.isOnRoad(edVet.getID()));
             AbstractSearchEngine engine = SearchEngineFactory.getSearchEngine(searchEngine, graph);
             List<RoadEdge> mainroute = engine.getVertexRoute(stVet, edVet, costType);
 //            getAllPartialEdge();
-            if(mainroute == null)
+            if (mainroute == null)
                 return;
 
             double total_distance = 0;
@@ -82,10 +104,10 @@ public class CoreMap {
             //walk to nearest road
             double walk_dist = OSMMathUtil.distance(startLocation, stVet);
             total_distance += walk_dist;
-            total_estimate_time += walk_dist/5;
+            total_estimate_time += walk_dist / 5;
 
-            for(RoadEdge i: mainroute){
-                for(Long n: i.getPath()){
+            for (RoadEdge i : mainroute) {
+                for (Long n : i.getPath()) {
                     fullList.addLast(dm.getNodeById(n));
                 }
                 total_distance += i.getCost(CostType.DISTANCE);
@@ -119,28 +141,5 @@ public class CoreMap {
 //            }
 //            return result;
 //        }
-    }
-
-
-
-    public double[] getMapBound(){
-        //System.out.println(dm.getXMLbound());
-        return dm.getXMLbound();
-    }
-
-    public int getZoomLevel(){
-        return OSMMathUtil.getZoomLevel(getMapBound());
-
-    }
-
-    public final SearchResultWrapper findRoute(GeoLocation st, GeoLocation ed, String se, String cost){
-        if(!SearchEngineFactory.isSupportedSearchEngine(se)){
-            //System.err.println(String.format("Search engine %s is not supported",se));
-            throw new IllegalArgumentException();
-        }
-        SearchResultWrapper resultWrapper = new SearchResultWrapper();
-        FindRouteQuery query = new FindRouteQuery(st,ed,resultWrapper,se,cost);
-        query.run();
-        return resultWrapper;
     }
 }
