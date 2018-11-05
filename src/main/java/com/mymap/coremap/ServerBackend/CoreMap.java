@@ -6,12 +6,8 @@ import com.mymap.coremap.OSMUtil.GeoLocation;
 import com.mymap.coremap.OSMUtil.OSMAbstractDataModel;
 import com.mymap.coremap.OSMUtil.OSMMathUtil;
 import com.mymap.coremap.OSMUtil.OSMXMLInterpreter;
-import com.mymap.coremap.SearchEngine.AStarSearchEngine;
 import com.mymap.coremap.SearchEngine.AbstractSearchEngine;
-import com.mymap.coremap.SearchEngine.DijkstraSearchEngine;
 import com.mymap.coremap.SearchEngine.SearchEngineFactory;
-import com.mymap.mapserver.responsetype.Location;
-import sun.awt.image.ImageWatched;
 
 import java.util.LinkedList;
 import java.util.List;

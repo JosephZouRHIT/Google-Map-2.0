@@ -10,9 +10,12 @@ public class SearchEngineFactory {
         if(type.equals("AStar")){
             return new AStarSearchEngine(g);
         }
+        if(type.equals("AStarZou")){
+            return new ZouAStarSearchEngine(g);
+        }
         return new AStarSearchEngine(g);
     }
     public static boolean isSupportedSearchEngine(String se){
-        return se.equals("Dijkstra") || se.equals("AStar");
+        return se.equals("Dijkstra") || se.equals("AStar") || se.equals("AStarZou");
     }
 }

@@ -4,7 +4,7 @@
     <title>Vue</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_APIKEY"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY"></script>
     <script src="js/vue.js"></script>
     <style>
         /* Always set the map height explicitly to define the size of the div
@@ -71,6 +71,7 @@
                     <select v-model="searchEngine">
                         <option value="Dijkstra">Dijkstra</option>
                         <option value="AStar">A*</option>
+                        <option value="AStarZou">A* - by Zou</option>
                     </select>
                 </td>
             </tr>
@@ -127,26 +128,26 @@
                 this.results = q.results;
             },
             inputsuggestion: function(str){
-                if(str === "from"){
-                    var reqdata = {
-                        'lat' : mapapp.getCenterLat(),
-                        'lng' : mapapp.getCenterLng(),
-                        'zoom' : mapapp.getCurrentZoom(),
-                        'keyword' : this.fromLocStr,
-                    };
-                    console.log(reqdata);
-                    $.ajax({
-                        url: "/locationSearchSuggestion",
-                        type: 'POST',
-                        dataType: 'json',
-                        data: JSON.stringify(reqdata),
-                        contentType: "application/json; charset=utf-8",
-                        success: function(data){
-                            mapapp.setResult(data);
-                            input.setResult(data);
-                        }
-                    });
-                }
+                // if(str === "from"){
+                //     var reqdata = {
+                //         'lat' : mapapp.getCenterLat(),
+                //         'lng' : mapapp.getCenterLng(),
+                //         'zoom' : mapapp.getCurrentZoom(),
+                //         'keyword' : this.fromLocStr,
+                //     };
+                //     console.log(reqdata);
+                //     $.ajax({
+                //         url: "/locationSearchSuggestion",
+                //         type: 'POST',
+                //         dataType: 'json',
+                //         data: JSON.stringify(reqdata),
+                //         contentType: "application/json; charset=utf-8",
+                //         success: function(data){
+                //             mapapp.setResult(data);
+                //             input.setResult(data);
+                //         }
+                //     });
+                // }
             },
             startSearch: function(){
                 console.log(this.fromMarker);

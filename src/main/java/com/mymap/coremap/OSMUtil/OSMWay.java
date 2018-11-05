@@ -1,6 +1,5 @@
 package com.mymap.coremap.OSMUtil;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 

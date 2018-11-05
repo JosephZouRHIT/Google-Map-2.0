@@ -1,8 +1,6 @@
 package com.mymap.mapserver.responsetype;
 
 import com.mymap.coremap.OSMUtil.GeoLocation;
-import com.mymap.coremap.OSMUtil.OSMMathUtil;
-import com.mymap.coremap.ServerBackend.TempLocation;
 
 public class InitialView {
     private final Location pos;

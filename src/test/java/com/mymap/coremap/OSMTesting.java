@@ -11,7 +11,10 @@ import com.mymap.coremap.ServerBackend.SearchResultWrapper;
 import com.mymap.coremap.ServerBackend.TempLocation;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 

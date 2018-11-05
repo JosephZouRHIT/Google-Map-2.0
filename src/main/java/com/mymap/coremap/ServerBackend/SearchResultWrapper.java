@@ -1,6 +1,5 @@
 package com.mymap.coremap.ServerBackend;
 
-import com.mymap.coremap.OSMGraph.RoadEdge;
 import com.mymap.coremap.OSMUtil.GeoLocation;
 
 import java.util.LinkedList;

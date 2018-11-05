@@ -1,8 +1,6 @@
 package com.mymap.mapserver;
 
-import com.mymap.coremap.OSMUtil.GeoLocation;
 import com.mymap.coremap.OSMUtil.OSMMathUtil;
-import com.mymap.coremap.SearchEngine.SearchEngineFactory;
 import com.mymap.coremap.ServerBackend.SearchResultWrapper;
 import com.mymap.coremap.ServerBackend.TempLocation;
 import com.mymap.mapserver.responsetype.*;
@@ -16,12 +14,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 
 @RestController
 public class MyController {
+
 
     @RequestMapping(value = "/getArea", method = RequestMethod.GET)
     public Area getArea() {
