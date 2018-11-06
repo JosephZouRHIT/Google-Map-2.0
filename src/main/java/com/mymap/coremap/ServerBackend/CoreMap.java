@@ -47,14 +47,20 @@ public class CoreMap {
 
     }
 
+    private boolean inMap(GeoLocation loc) {
+        return OSMMathUtil.inBoundary(loc, dm.getXMLbound());
+    }
+
     public final SearchResultWrapper findRoute(GeoLocation st, GeoLocation ed, String se, String cost) {
         if (!SearchEngineFactory.isSupportedSearchEngine(se)) {
             //System.err.println(String.format("Search engine %s is not supported",se));
             throw new IllegalArgumentException();
         }
         SearchResultWrapper resultWrapper = new SearchResultWrapper();
-        FindRouteQuery query = new FindRouteQuery(st, ed, resultWrapper, se, cost);
-        query.run();
+        if (inMap(st) && inMap(ed)) {
+            FindRouteQuery query = new FindRouteQuery(st, ed, resultWrapper, se, cost);
+            query.run();
+        }
         return resultWrapper;
     }
 

@@ -52,6 +52,78 @@ public class OSMTesting {
         System.out.println(String.format("XML: %s: %d milliseconds", name, endTime - startTime));
         System.out.println();
     }
+/*
+    @Test
+    public void testPartialEdge() {
+        OSMAbstractDataModel dm = OSMXMLInterpreter.loadFromFile("test_partial_edge.osm");
+        assert dm != null;
+        OSMGraphConstructor gc = new OSMGraphConstructor(dm);
+        Graph g = gc.getGraph();
+        String[] s_vert = {"181882039", "181882045"};
+        long[] l_vert = new long[s_vert.length];
+        for (int i = 0; i < s_vert.length; i++) {
+            l_vert[i] = Long.parseLong(s_vert[i]);
+        }
+        String[] s_node = {"181882042", "1123406159", "1123406195", "1123406215", "1123406213", "1123406178", "1123406278"};
+        long[] l_node = new long[s_node.length];
+        for (int i = 0; i < s_node.length; i++) {
+            l_node[i] = Long.parseLong(s_node[i]);
+        }
+        for (long aL_vert : l_vert) {
+            assertTrue(g.isVertex(aL_vert));
+            assertTrue(g.isOnRoad(aL_vert));
+        }
+        for (long aL_node : l_node) {
+            assertFalse(g.isVertex(aL_node));
+            assertTrue(g.isOnRoad(aL_node));
+        }
+        RoadVertex v1 = new RoadVertex(dm.getNodeById(Long.parseLong("181882039")));
+        RoadVertex v2 = new RoadVertex(dm.getNodeById(Long.parseLong("181882045")));
+        RoadVertex vi = new RoadVertex(dm.getNodeById(Long.parseLong("1123406213")));
+        Iterator<AbstractEdge> it = g.getEdgeIterator(v1);
+        RoadEdge e1 = (RoadEdge) it.next();
+
+        System.out.println(e1.getCost(CostType.DISTANCE));
+        System.out.println(e1.getCost(CostType.TIME));
+        RoadEdge r1 = g.getPartialEdge(e1, vi, Graph.Direction.FORWARD);
+        String[] s_path1 = {"1123406213", "1123406178", "1123406278", "181882045"};
+        long[] l_path1 = new long[s_path1.length];
+        for (int i = 0; i < s_path1.length; i++) {
+            l_path1[i] = Long.parseLong(s_path1[i]);
+        }
+
+        for (int i = 0; i < l_path1.length; i++) {
+            assertEquals(l_path1[i], (long) r1.getPath().get(i));
+        }
+        System.out.println(r1.getCost(CostType.DISTANCE));
+        System.out.println(r1.getCost(CostType.TIME));
+
+        RoadEdge r2 = g.getPartialEdge(e1, vi, Graph.Direction.BACK);
+        String[] s_path2 = {"181882039", "181882042", "1123406159", "1123406195", "1123406215", "1123406213"};
+        long[] l_path2 = new long[s_path2.length];
+        for (int i = 0; i < s_path2.length; i++) {
+            l_path2[i] = Long.parseLong(s_path2[i]);
+        }
+
+        for (int i = 0; i < l_path2.length; i++) {
+            assertEquals(l_path2[i], (long) r2.getPath().get(i));
+        }
+
+
+        System.out.println(r2.getCost(CostType.DISTANCE));
+        System.out.println(r2.getCost(CostType.TIME));
+    }
+    */
+
+    @Test
+    public void testInBound() {
+        TempLocation loc = new TempLocation("32.9", "-90.8");
+        assertTrue(OSMMathUtil.inBoundary(loc, new double[]{33.0, 30.0, -90.0, -91.0}));
+
+        assertFalse(OSMMathUtil.inBoundary(loc, new double[]{35.0, 33.0, -90.0, -91.0}));
+
+        assertFalse(OSMMathUtil.inBoundary(loc, new double[]{33.0, 30.0, -80.0, -88.0}));
+    }
 
     @Test
     public void testDistanceCalculation() {

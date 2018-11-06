@@ -12,7 +12,7 @@ public class MapRoute {
     private final boolean have_route;
 
     public MapRoute(SearchResultWrapper resultWrapper) {
-        have_route = resultWrapper.getRoute() != null;
+        have_route = resultWrapper.getRoute().size() != 0;
         this.route = new LinkedList<>();
         if (resultWrapper.getRoute() != null) {
             for (GeoLocation gloc : resultWrapper.getRoute()) {

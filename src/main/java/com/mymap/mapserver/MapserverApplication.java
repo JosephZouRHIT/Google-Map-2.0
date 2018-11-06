@@ -6,10 +6,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class MapserverApplication {
@@ -29,7 +30,8 @@ public class MapserverApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(MapserverApplication.class, args);
+        SpringApplication app = new SpringApplication(MapserverApplication.class);
+        app.run(args);
     }
 
     public static Logger getLogger() {
@@ -41,15 +43,24 @@ public class MapserverApplication {
         API_KEY = key;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void doSomethingAfterStartup() {
-        logger.info(String.format("Start loading map: %s", file));
-        map = new CoreMap(file);
-        logger.info(String.format("Finish loading map: %s", file));
-    }
-
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
+    }
+
+    //    @EventListener(ApplicationReadyEvent.class)
+//    public void doSomethingAfterStartup() {
+//        logger.info(String.format("Start loading map: %s", file));
+//        map = new CoreMap(file);
+//        logger.info(String.format("Finish loading map: %s", file));
+//    }
+    @Component
+    public class StartUpInit {
+        @PostConstruct
+        public void init() {
+            logger.info(String.format("Start loading map: %s", file));
+            map = new CoreMap(file);
+            logger.info(String.format("Finish loading map: %s", file));
+        }
     }
 }

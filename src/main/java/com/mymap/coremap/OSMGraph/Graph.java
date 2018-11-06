@@ -106,20 +106,19 @@ public class Graph {
                 break;
             case FORWARD:
                 Iterator<Long> it = e.getPath().iterator();
-                while (it.next() != v.getID()) ;
+                while (!it.next().equals(v.getID())) ;
                 last = dm.getNodeById(v.getID());
                 wayListDest.add(v.getID());
                 while (it.hasNext()) {
                     Long cur = it.next();
                     dis += OSMMathUtil.distance(last, dm.getNodeById(cur));
                     wayListDest.add(cur);
+                    last = dm.getNodeById(cur);
                 }
                 break;
         }
         return dis;
     }
-
-    ;
 
     public RoadEdge getPartialEdge(RoadEdge e, AbstractVertex v, Direction d) {
         if (!nodeInEdge.containsKey(e)) {
