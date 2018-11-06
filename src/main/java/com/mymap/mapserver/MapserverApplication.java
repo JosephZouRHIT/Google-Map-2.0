@@ -3,6 +3,7 @@ package com.mymap.mapserver;
 import com.mymap.coremap.ServerBackend.CoreMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -48,12 +49,6 @@ public class MapserverApplication {
         return new RestTemplate();
     }
 
-    //    @EventListener(ApplicationReadyEvent.class)
-//    public void doSomethingAfterStartup() {
-//        logger.info(String.format("Start loading map: %s", file));
-//        map = new CoreMap(file);
-//        logger.info(String.format("Finish loading map: %s", file));
-//    }
     @Component
     public class StartUpInit {
         @PostConstruct

@@ -126,6 +126,16 @@ public class OSMTesting {
     }
 
     @Test
+    public void testInBound(){
+        TempLocation loc = new TempLocation("32.9","-90.8");
+        assertTrue(OSMMathUtil.inBoundary(loc, new double[]{33.0, 30.0, -90.0, -91.0}));
+
+        assertFalse(OSMMathUtil.inBoundary(loc, new double[]{35.0, 33.0, -90.0, -91.0}));
+
+        assertFalse(OSMMathUtil.inBoundary(loc, new double[]{33.0, 30.0, -80.0, -88.0}));
+    }
+
+    @Test
     public void testDistanceCalculation() {
         OSMNode n1 = new OSMNode(id++, null, 32.9697, -96.80322);
         OSMNode n2 = new OSMNode(id++, null, 29.46786, -98.53506);
