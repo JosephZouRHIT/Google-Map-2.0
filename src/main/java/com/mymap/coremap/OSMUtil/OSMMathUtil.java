@@ -60,6 +60,18 @@ public class OSMMathUtil {
         return dist;
     }
 
+    public static boolean inBoundary(GeoLocation loc, double[] bound){
+        if(Double.compare(loc.getLatitude(),bound[0]) > 0)
+            return false;
+        if(Double.compare(loc.getLatitude(), bound[1]) < 0)
+            return false;
+        if(Double.compare(loc.getLongitude(), bound[2]) > 0)
+            return false;
+        if(Double.compare(loc.getLongitude(), bound[3]) < 0)
+            return false;
+        return true;
+    }
+
     public static int getZoomLevel(double[] bound) {
         if (bound.length != 4) {
             throw new IllegalArgumentException();
