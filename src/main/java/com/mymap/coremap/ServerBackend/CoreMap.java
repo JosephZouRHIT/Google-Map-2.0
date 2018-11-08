@@ -37,6 +37,14 @@ public class CoreMap {
         return new TempLocation((area[0] + area[1]) / 2, (area[2] + area[3]) / 2);
     }
 
+    public int numberOfVertex(){
+        return graph.size();
+    }
+
+    public int numberOfNodes(){
+        return dm.getAllNodeInstance().size();
+    }
+
     public double[] getMapBound() {
         //System.out.println(dm.getXMLbound());
         return dm.getXMLbound();

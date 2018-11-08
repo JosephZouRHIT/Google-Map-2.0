@@ -55,6 +55,7 @@ public class MapserverApplication {
             logger.info(String.format("Start loading map: %s", file));
             map = new CoreMap(file);
             logger.info(String.format("Finish loading map: %s", file));
+            logger.info(String.format("Map contains %d nodes, and %d vertices",map.numberOfNodes(),map.numberOfVertex()));
         }
     }
 }

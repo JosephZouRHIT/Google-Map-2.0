@@ -149,5 +149,9 @@ public class Graph {
         return new_e;
     }
 
+    public int size(){
+        return verList.size();
+    }
+
     public enum Direction {FORWARD, BACK}
 }
