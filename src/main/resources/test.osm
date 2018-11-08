@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.6.1 (2017 thorn-03.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="39.4007000" minlon="-87.4796000" maxlat="39.5384000" maxlon="-87.2983000"/>
+ <node id="153357350" visible="true" version="3" changeset="52358489" timestamp="2017-09-25T15:10:04Z" user="Edward" uid="364" lat="39.5039248" lon="-87.4355764">
+  <tag k="ele" v="146"/>
+  <tag k="gnis:Class" v="Populated Place"/>
+  <tag k="gnis:County" v="Vigo"/>
+  <tag k="gnis:County_num" v="167"/>
+  <tag k="gnis:id" v="430517"/>
+  <tag k="gnis:ST_alpha" v="IN"/>
+  <tag k="gnis:ST_num" v="18"/>
+  <tag k="import_uuid" v="bb7269ee-502a-5391-8056-e3ce0e66489c"/>
+  <tag k="is_in" v="Vigo,Indiana,Ind.,IN,USA"/>
+  <tag k="name" v="Barnhart Town"/>
+  <tag k="place" v="hamlet"/>
+  <tag k="wikidata" v="Q4861829"/>
+ </node>
+ <node id="153380829" visible="true" version="3" changeset="52358489" timestamp="2017-09-25T15:10:27Z" user="Edward" uid="364" lat="39.4922587" lon="-87.3977979">
+  <tag k="ele" v="149"/>
+  <tag k="gnis:Class" v="Populated Place"/>
+  <tag k="gnis:County" v="Vigo"/>
+  <tag k="gnis:County_num" v="167"/>
+  <tag k="gnis:id" v="445001"/>
+  <tag k="gnis:ST_alpha" v="IN"/>
+  <tag k="gnis:ST_num" v="18"/>
+  <tag k="import_uuid" v="bb7269ee-502a-5391-8056-e3ce0e66489c"/>
+  <tag k="is_in" v="Vigo,Indiana,Ind.,IN,USA"/>
+  <tag k="name" v="Twelve Points"/>
+  <tag k="place" v="hamlet"/>
+  <tag k="wikidata" v="Q7857639"/>
+ </node>
+ <node id="153421657" visible="true" version="4" changeset="52358489" timestamp="2017-09-25T15:10:08Z" user="Edward" uid="364" lat="39.5111986" lon="-87.3784239">
+  <tag k="ele" v="149"/>
+  <tag k="gnis:Class" v="Populated Place"/>
+  <tag k="gnis:County" v="Vigo"/>
+  <tag k="gnis:County_num" v="167"/>
+  <tag k="gnis:id" v="433522"/>
+  <tag k="gnis:ST_alpha" v="IN"/>
+  <tag k="gnis:ST_num" v="18"/>
+  <tag k="import_uuid" v="bb7269ee-502a-5391-8056-e3ce0e66489c"/>
+  <tag k="is_in" v="Vigo,Indiana,Ind.,IN,USA"/>
+  <tag k="name" v="Dewey"/>
+  <tag k="place" v="hamlet"/>
+  <tag k="wikidata" v="Q5268154"/>
+ </node>
+ <node id="153497538" visible="true" version="3" changeset="52358489" timestamp="2017-09-25T15:10:23Z" user="Edward" uid="364" lat="39.4125379" lon="-87.3772416">
+  <tag k="ele" v="170"/>
+  <tag k="gnis:Class" v="Populated Place"/>
+  <tag k="gnis:County" v="Vigo"/>
+  <tag k="gnis:County_num" v="167"/>
+  <tag k="gnis:id" v="443982"/>
+  <tag k="gnis:ST_alpha" v="IN"/>
+  <tag k="gnis:ST_num" v="18"/>
+  <tag k="import_uuid" v="bb7269ee-502a-5391-8056-e3ce0e66489c"/>
+  <tag k="is_in" v="Vigo,Indiana,Ind.,IN,USA"/>
+  <tag k="name" v="Spring Hill"/>
+  <tag k="place" v="hamlet"/>
+  <tag k="wikidata" v="Q7580568"/>
+ </node>
+ <node id="153516590" visible="true" version="3" changeset="52358489" timestamp="2017-09-25T15:10:25Z" user="Edward" uid="364" lat="39.4625366" lon="-87.4236316">
+  <tag k="ele" v="142"/>
+  <tag k="gnis:Class" v="Populated Place"/>
+  <tag k="gnis:County" v="Vigo"/>
+  <tag k="gnis:County_num" v="167"/>
+  <tag k="gnis:id" v="444608"/>
+  <tag k="gnis:ST_alpha" v="IN"/>
+  <tag k="gnis:ST_num" v="18"/>
+  <tag k="import_uuid" v="bb7269ee-502a-5391-8056-e3ce0e66489c"/>
+  <tag k="is_in" v="Vigo,Indiana,Ind.,IN,USA"/>
+  <tag k="name" v="Taylorville"/>
+  <tag k="place" v="hamlet"/>
+  <tag k="wikidata" v="Q7690277"/>
+ </node>
+ <node id="153532013" visible="true" version="4" changeset="52358489" timestamp="2017-09-25T15:10:19Z" user="Edward" uid="364" lat="39.5065737" lon="-87.3720514">
+  <tag k="ele" v="152"/>
+  <tag k="gnis:Class" v="Populated Place"/>
+  <tag k="gnis:County" v="Vigo"/>
+  <tag k="gnis:County_num" v="167"/>
+  <tag k="gnis:id" v="441578"/>
+  <tag k="gnis:ST_alpha" v="IN"/>
+  <tag k="gnis:ST_num" v="18"/>
+  <tag k="import_uuid" v="bb7269ee-502a-5391-8056-e3ce0e66489c"/>
+  <tag k="is_in" v="Vigo,Indiana,Ind.,IN,USA"/>
+  <tag k="name" v="Preston"/>
+  <tag k="place" v="hamlet"/>
+  <tag k="wikidata" v="Q7241803"/>
+ </node>
+ <way id="17570942" visible="true" version="3" changeset="15795889" timestamp="2013-04-20T11:15:03Z" user="bot-mode" uid="451693">
+  <nd ref="153357350"/>
+  <nd ref="153380829"/>
+  <nd ref="153421657"/>
+  <nd ref="153497538"/>
+  <tag k="highway" v="residential"/>
+  <tag k="maxspeed" v="60"/>
+  <tag k="name" v="Hancock Street"/>
+  <tag k="tiger:cfcc" v="A41"/>
+  <tag k="tiger:county" v="Vigo, IN"/>
+  <tag k="tiger:name_base" v="Hancock"/>
+  <tag k="tiger:name_type" v="St"/>
+  <tag k="tiger:reviewed" v="no"/>
+  <tag k="tiger:zip_left" v="47804"/>
+  <tag k="tiger:zip_right" v="47804"/>
+ </way>
+ <way id="17571013" visible="true" version="4" changeset="15795889" timestamp="2013-04-20T11:15:13Z" user="bot-mode" uid="451693">
+  <nd ref="153421657"/>
+  <nd ref="153516590"/>
+  <nd ref="153532013"/>
+  <tag k="highway" v="residential"/>
+  <tag k="name" v="Village Drive"/>
+  <tag k="maxspeed" v="50 mph"/>
+  <tag k="tiger:cfcc" v="A41"/>
+  <tag k="tiger:county" v="Vigo, IN"/>
+  <tag k="tiger:name_base" v="Village"/>
+  <tag k="tiger:name_type" v="Dr"/>
+  <tag k="tiger:reviewed" v="no"/>
+ </way>
+</osm>

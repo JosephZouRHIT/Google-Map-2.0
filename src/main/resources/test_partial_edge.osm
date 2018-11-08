@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.6.1 (2017 thorn-03.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+ <bounds minlat="39.4007000" minlon="-87.4796000" maxlat="39.5384000" maxlon="-87.2983000"/>
+
+ <node id="181882039" visible="true" version="3" changeset="7103940" timestamp="2011-01-27T14:07:18Z" user="dcs" uid="236412" lat="39.4556986" lon="-87.3713627"/>
+ <node id="181882042" visible="true" version="3" changeset="7103940" timestamp="2011-01-27T14:07:18Z" user="dcs" uid="236412" lat="39.4560008" lon="-87.3713563"/>
+ <node id="1123406159" visible="true" version="1" changeset="7103940" timestamp="2011-01-27T14:07:07Z" user="dcs" uid="236412" lat="39.4560598" lon="-87.3713297"/>
+ <node id="1123406195" visible="true" version="1" changeset="7103940" timestamp="2011-01-27T14:07:08Z" user="dcs" uid="236412" lat="39.4560971" lon="-87.3712699"/>
+ <node id="1123406215" visible="true" version="1" changeset="7103940" timestamp="2011-01-27T14:07:08Z" user="dcs" uid="236412" lat="39.4561101" lon="-87.3711460"/>
+ <node id="1123406213" visible="true" version="1" changeset="7103940" timestamp="2011-01-27T14:07:08Z" user="dcs" uid="236412" lat="39.4561062" lon="-87.3705455"/>
+ <node id="1123406178" visible="true" version="1" changeset="7103940" timestamp="2011-01-27T14:07:07Z" user="dcs" uid="236412" lat="39.4560890" lon="-87.3704548"/>
+ <node id="1123406278" visible="true" version="1" changeset="7103940" timestamp="2011-01-27T14:07:10Z" user="dcs" uid="236412" lat="39.4560608" lon="-87.3703979"/>
+ <node id="181882045" visible="true" version="3" changeset="7103940" timestamp="2011-01-27T14:07:18Z" user="dcs" uid="236412" lat="39.4559856" lon="-87.3703427"/>
+
+ <way id="17564613" visible="true" version="2" changeset="7103940" timestamp="2011-01-27T14:07:25Z" user="dcs" uid="236412">
+  <nd ref="181882039"/>
+  <nd ref="181882042"/>
+  <nd ref="1123406159"/>
+  <nd ref="1123406195"/>
+  <nd ref="1123406215"/>
+  <nd ref="1123406213"/>
+  <nd ref="1123406178"/>
+  <nd ref="1123406278"/>
+  <nd ref="181882045"/>
+  <tag k="highway" v="service"/>
+  <tag k="oneway" v="yes"/>
+  <tag k="tiger:cfcc" v="A41"/>
+  <tag k="tiger:county" v="Vigo, IN"/>
+  <tag k="tiger:reviewed" v="no"/>
+  <tag k="tiger:separated" v="no"/>
+  <tag k="tiger:source" v="tiger_import_dch_v0.6_20070810"/>
+  <tag k="tiger:tlid" v="27118195"/>
+  <tag k="tiger:upload_uuid" v="bulk_upload.pl-0dd887d0-8cac-4e70-9fda-6f1ca8b3fdd6"/>
+</way>
+</osm>

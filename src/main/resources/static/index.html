@@ -4,7 +4,7 @@
     <title>Vue</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
     <script src="js/vue.js"></script>
     <style>
         /* Always set the map height explicitly to define the size of the div
@@ -36,67 +36,78 @@
             font-size: 15px;
             overflow: scroll;
         }
+        .noRoute{
+            display:none;
+        }
 
     </style>
 </head>
 <body>
-<div id="inputwindow">
-    <div id="inputform">
-        <table style="margin:auto; padding-top: 10px; padding-bottom: 10px;">
-            <tr id="methods">
-                <td align="center">
-						<span>
-							<input type="image" src="img/walk.png" id = "walk" style="height: 30px; width: 30px">
-						</span>
-                    <span>
-							<input type="image" src="img/car.png" id = "car" style="height: 30px; width: 30px">
-						</span>
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <span>From:</span>
-                    <input type="text" v-on:focus="bindPinpoint('from')" ref="fromInput" name="" v-on:keyup.enter="inputsuggestion('from')" placeholder="Enter start location" v-model="fromLocStr" style="width: 70%;">
-                </td>
-            </tr>
-            <tr>
-                <td align="right">
-                    <span>To:</span>
-                    <input type="text" v-on:focus="bindPinpoint('to')" ref="toInput" name="" placeholder="Enter destination location" v-model="toLocStr" style="width: 70%;"></td>
-                </td>
-            </tr>
-            <tr>
-                <td align="center">
-                    <span>Search engine:</span>
-                    <select v-model="searchEngine">
-                        <option value="Dijkstra">Dijkstra</option>
-                        <option value="AStar">A*</option>
-                        <option value="AStarZou">A* - by Zou</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td align="center">
-                    <span>Cost Preference:</span>
-                    <select v-model="costType">
-                        <option value="Time">Time</option>
-                        <option value="Distance">Distance</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td align="center">
-                    <input type="button" v-on:click= "startSearch" value= "Search" id = "searchButton" style="width: 50%; height:20px;">
-                </td>
-            </tr>
-        </table>
+    <div id="inputwindow">
+        <div id="inputform">
+            <table style="margin:auto; padding-top: 10px; padding-bottom: 10px;">
+                <tr id="methods">
+                    <td align="center">
+                      <span>
+                       <input type="image" src="img/walk.png" id = "walk" style="height: 30px; width: 30px">
+                   </span>
+                   <span>
+                       <input type="image" src="img/car.png" id = "car" style="height: 30px; width: 30px">
+                   </span>
+               </td>
+           </tr>
+           <tr>
+            <td align="right">
+                <span>From:</span>
+                <input type="text" v-on:focus="bindPinpoint('from')" ref="fromInput" name="" v-on:keyup.enter="inputsuggestion('from')" placeholder="Enter start location" v-model="fromLocStr" style="width: 70%;">
+            </td>
+        </tr>
+        <tr>
+            <td align="right">
+                <span>To:</span>
+                <input type="text" v-on:focus="bindPinpoint('to')" ref="toInput" name="" placeholder="Enter destination location" v-model="toLocStr" style="width: 70%;"></td>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <span>Search engine:</span>
+                <select v-model="searchEngine">
+                    <option value="DijkstraAlec">Dijkstra - by Alec</option>
+                    <option value="AStarZou">A* - by Zou</option>
+                    <option value="Dijkstra">Dijkstra</option>
+                    <option value="AStar">A*</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <span>Cost Preference:</span>
+                <select v-model="costType">
+                    <option value="Time">Time</option>
+                    <option value="Distance">Distance</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <input type="button" v-on:click= "startSearch" value= "Search" id = "searchButton" style="width: 50%; height:20px;">
+            </td>
+        </tr>
+    </table>
+</div>
+<div v-bind:class="{noRoute: hasError}">
+    <div style="margin-left: 75px;">
+        <p>Route information:</p>
+        <p>Time: {{ time_hour }} h {{ time_min }} min</p>
+        <p>Distance: {{ distance }} mile</p>
     </div>
-    <div>
-        <list-item v-for="res in results"
-                   v-bind:key="res.id"
-                   v-bind:icon="res.icon"
-                   v-bind:name="res.name"></list-item>
-    </div>
+</div>
+<div>
+    <list-item v-for="res in results"
+    v-bind:key="res.id"
+    v-bind:icon="res.icon"
+    v-bind:name="res.name"></list-item>
+</div>
 </div>
 <div id="map"></div>
 
@@ -107,8 +118,8 @@
     Vue.component('list-item', {
         props: ['icon', 'name'],
         template: '<table class="listitem"><tr><td style="width:40px;">\
-			<img :src=icon style="width:20px; height: 20px;"></td><td>\
-			<div style="position: relative;">{{ name }}</div></td></tr></table>'
+        <img :src=icon style="width:20px; height: 20px;"></td><td>\
+        <div style="position: relative;">{{ name }}</div></td></tr></table>'
     })
 
     var input = new Vue({
@@ -120,8 +131,12 @@
             toMarker:undefined,
             activeMethod:"",
             results : [],
-            searchEngine:"Dijkstra",
+            searchEngine:"DijkstraAlex",
             costType:"Time",
+            hasError:true,
+            time_hour:undefined,
+            time_min:undefined,
+            distance:undefined,
         },
         methods:{
             setResult: function(q) {
@@ -168,7 +183,16 @@
                         },
                         success: function(data){
                             //console.log(data);
-                            mapapp.drawRoute(data.route);
+                            if(data.have_route){
+                                mapapp.drawRoute(data.route);
+                                input.hasError = false;
+                                input.time_hour = Math.floor(data.time);
+                                data.time -= Math.floor(data.time);
+                                input.time_min = Math.floor(data.time * 60);
+                                input.distance = data.distance.toFixed(1);
+                            }else{
+                                input.hasError = true;
+                            }
                         }
                     });
                 }else{
@@ -215,48 +239,48 @@
         }
     })
 
-    var mapapp = new Vue({
-        el: '#map',
-        data:{
-            map:undefined,
-            center: "",
-            markerSet: [],
-            activeMarker:undefined,
-            routeLine:undefined,
-        },
-        methods: {
-            getInitialView:function(){
-                fetch("/getInitialView").then(res => res.json()).then(res =>{
-                    console.log(res);
+var mapapp = new Vue({
+    el: '#map',
+    data:{
+        map:undefined,
+        center: "",
+        markerSet: [],
+        activeMarker:undefined,
+        routeLine:undefined,
+    },
+    methods: {
+        getInitialView:function(){
+            fetch("/getInitialView").then(res => res.json()).then(res =>{
+                console.log(res);
                 this.map.setCenter(res.pos);
                 //this.map.setZoom(1);
                 this.map.setZoom(res.zoom)
             });
-                fetch("/getCenterString").then(res => res.json()).then(res => {
-                    this.center = res.loc;
+            fetch("/getCenterString").then(res => res.json()).then(res => {
+                this.center = res.loc;
                 //console.log(this.center);
             });
-            },
-            drawRoute: function(route){
-                if(this.routeLine != undefined){
-                    this.routeLine.setMap(null);
-                }
-                this.routeLine = new google.maps.Polyline({
-                    path: route,
-                    geodesic: true,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 1.0,
-                    strokeWeight: 2,
-                    map: this.map,
-                });
-            },
-            setResult: function(q){
-                console.log(this.markerSet);
-                for(var i = 0; i < this.markerSet.length; i ++){
-                    this.markerSet[i].setMap(null);
-                }
-                this.markerSet = new  Array ();
-                for(var i = 0; i < q.results.length; i ++ ){
+        },
+        drawRoute: function(route){
+            if(this.routeLine != undefined){
+                this.routeLine.setMap(null);
+            }
+            this.routeLine = new google.maps.Polyline({
+                path: route,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+                map: this.map,
+            });
+        },
+        setResult: function(q){
+            console.log(this.markerSet);
+            for(var i = 0; i < this.markerSet.length; i ++){
+                this.markerSet[i].setMap(null);
+            }
+            this.markerSet = new  Array ();
+            for(var i = 0; i < q.results.length; i ++ ){
                     //console.log(q.results[i]);
                     var marker = new google.maps.Marker({
                         position: q.results[i].geometry.location,

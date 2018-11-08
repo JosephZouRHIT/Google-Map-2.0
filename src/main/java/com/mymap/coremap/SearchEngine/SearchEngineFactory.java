@@ -13,10 +13,13 @@ public class SearchEngineFactory {
         if (type.equals("AStarZou")) {
             return new ZouAStarSearchEngine(g);
         }
+        if (type.equals("DijkstraAlec")) {
+            return new AlecDijkstraSearchEngine(g);
+        }
         return new AStarSearchEngine(g);
     }
 
     public static boolean isSupportedSearchEngine(String se) {
-        return se.equals("Dijkstra") || se.equals("AStar") || se.equals("AStarZou");
+        return se.equals("Dijkstra") || se.equals("AStar") || se.equals("AStarZou") || se.equals("DijkstraAlec");
     }
 }
